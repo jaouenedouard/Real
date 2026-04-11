@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Keepers</title><style>
+:root{
+  --bg:#f6f7fb;--text:#0f172a;--muted:#64748b;--line:rgba(15,23,42,.08);
+  --card:#fff;--dark:#111827;--shadow:0 18px 40px rgba(15,23,42,.08);
+  --accent:#0ea5e9;--accent-soft:#e0f2fe;--ok:#065f46;--ok-soft:#ecfdf5;
+  --warn:#92400e;--warn-soft:#fff7ed;--warn-strong:#fef3c7;--warn-border:#facc15;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:
+radial-gradient(circle at top left, rgba(59,130,246,.07), transparent 25%),
+radial-gradient(circle at top right, rgba(14,165,233,.07), transparent 22%),var(--bg);color:var(--text)}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1000px,calc(100% - 24px));margin:0 auto;padding:20px 0 40px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em;font-size:18px}
+.brand-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--dark);color:#fff;box-shadow:var(--shadow);font-size:14px}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+.nav-links a{font-size:13px;font-weight:700;padding:10px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#334155}
+.hero{background:#0f172a;color:#fff;border-radius:28px;padding:28px;box-shadow:var(--shadow)}
+.eyebrow{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+h1{margin:0 0 10px;font-size:clamp(34px,6vw,58px);line-height:.95;letter-spacing:-.06em}
+.sub{margin:0;color:rgba(255,255,255,.84);font-size:18px;line-height:1.55;max-width:680px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+.section{margin-top:18px}
+.section-label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.title{margin:0 0 6px;font-size:28px;line-height:1.03;letter-spacing:-.05em}
+.helper{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.field{width:100%;border:1px solid rgba(15,23,42,.10);border-radius:14px;padding:14px 15px;background:#fff;font-size:14px;color:var(--text);outline:none}
+.label{display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:6px}
+.btn{display:inline-block;border:0;border-radius:14px;background:var(--dark);color:#fff;padding:14px 16px;font-weight:800;cursor:pointer;text-align:center}
+.btn.secondary{background:#fff;color:#111827;border:1px solid var(--line)}
+.btn.full{width:100%}
+.feature-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feature{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fff}
+.feature h3{margin:0 0 8px;font-size:18px}
+.feature p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.slider-block{padding:12px;border:1px solid var(--line);border-radius:18px;background:#fafbff;margin-top:12px}
+.slider-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;align-items:center}
+.slider-title{font-size:13px;font-weight:800}
+.slider-value{font-size:11px;font-weight:800;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 8px;white-space:nowrap}
+input[type="range"]{width:100%;accent-color:var(--dark)}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}
+.optional-box{border:1px dashed var(--line);border-radius:14px;padding:12px;background:#fafafa;margin-top:12px}
+.optional-box strong{font-size:13px;display:block;margin-bottom:6px}
+.optional-box p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.45}
+.optional-box.highlight{border-color:#0ea5e9;background:#f0f9ff}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid var(--line);background:#f8fafc;color:#334155}
+.badge.info{background:var(--accent-soft);color:#075985;border-color:rgba(14,165,233,.14)}
+.badge.good{background:var(--ok-soft);color:var(--ok);border-color:rgba(6,95,70,.10)}
+.badge.warn{background:var(--warn-strong);color:#854d0e;border-color:var(--warn-border)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pricing-card{position:relative;border:1px solid var(--line);border-radius:20px;padding:22px;background:#fff}
+.pricing-card.featured{border-color:rgba(17,24,39,.18);box-shadow:0 16px 40px rgba(15,23,42,.10)}
+.pill{position:absolute;top:14px;right:14px;padding:7px 10px;border-radius:999px;background:#111827;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.price{font-size:42px;line-height:1;font-weight:800;letter-spacing:-.06em;margin-bottom:12px}
+.price span{font-size:16px;color:var(--muted);font-weight:700;letter-spacing:0}
+.list{display:grid;gap:10px;color:#334155;font-size:14px;line-height:1.5}
+.pick-list{display:grid;gap:14px;margin-top:18px}
+.pick-card{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:14px;border:1px solid var(--line);border-radius:20px;background:#fff}
+.pick-card.warn-card{border-color:#facc15;background:#fffdf3}
+.pick-image{width:110px;height:92px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#f8fafc}
+.pick-image img{width:100%;height:100%;object-fit:cover;display:block}
+.pick-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}
+.pick-address{font-size:20px;font-weight:800;letter-spacing:-.03em}
+.pick-price{font-size:22px;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.pick-copy{font-size:14px;color:#334155;line-height:1.55;margin-bottom:12px}
+.pick-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.action-btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:800;color:#334155;cursor:pointer}
+.action-btn.keep{background:#111827;color:#fff;border-color:#111827}
+.side-grid{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+.mini-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px}
+.saved-list,.early-list{display:grid;gap:10px;margin-top:12px}
+.saved-item,.early-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.saved-item strong,.early-item strong{display:block;font-size:15px;margin-bottom:4px;letter-spacing:-.02em}
+.saved-item p,.early-item p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+.early-item{background:var(--warn-soft);border-color:rgba(146,64,14,.12)}
+.mini-cta{margin-top:10px;display:inline-block;padding:9px 10px;border-radius:10px;border:1px solid rgba(146,64,14,.12);background:#fff;font-size:12px;font-weight:800;color:#7c2d12}
+.check-list{display:grid;gap:8px;font-size:13px;color:#334155}
+.listing-row{display:grid;gap:12px;margin-top:16px}
+.keeper-card{display:grid;grid-template-columns:110px 1fr auto;gap:14px;padding:14px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.keeper-actions{display:grid;gap:8px;align-content:start}
+.small{font-size:12px;color:var(--muted);line-height:1.45}
+@media (max-width:920px){.feature-list,.side-grid,.grid-2,.grid-3,.pricing-grid,.keeper-card{grid-template-columns:1fr}}
+@media (max-width:680px){.pick-card{grid-template-columns:1fr}.pick-image{width:100%;height:200px}.pick-top{flex-direction:column;align-items:flex-start}}
+</style></head><body><div class="wrap"><div class="nav"><div class="brand"><div class="brand-mark">NYC</div><div>Search Pass</div></div><div class="nav-links"><a href="index.html">Home</a><a href="pricing.html">Pricing</a><a href="login.html">Login</a><a href="onboarding.html">Setup</a><a href="app.html">App</a><a href="keepers.html">Keepers</a></div></div><div class="card"><div class="section-label">Saved</div><h2 class="title">All keepers</h2><p class="helper">Keep only the listings that still represent what you want. Removing old ones helps future picks stay clean.</p><div class="listing-row"><div class="keeper-card"><div class="pick-image"><img src="./preview-sample.png" alt="Apartment preview"></div><div><strong class="pick-address" style="font-size:18px">429 Kent Ave #706</strong><div class="badge-row"><div class="badge good">Strong match</div><div class="badge info">6% below market</div></div><p class="pick-copy" style="margin-top:8px">Bright unit, updated finishes, and good fit if you want to stay close to your current quality level.</p></div><div class="keeper-actions"><button class="action-btn">Open Zillow</button><button class="action-btn">Remove</button></div></div><div class="keeper-card"><div class="pick-image"><img src="./preview-sample.png" alt="Apartment preview"></div><div><strong class="pick-address" style="font-size:18px">21 India St #10A</strong><div class="badge-row"><div class="badge">Premium option</div><div class="badge info">2% above market</div></div><p class="pick-copy" style="margin-top:8px">Closest to your ideal light and view profile, but pricing is tighter and availability may move fast.</p></div><div class="keeper-actions"><button class="action-btn">Open Zillow</button><button class="action-btn">Remove</button></div></div></div></div><div class="card section"><div class="section-label">Teach the system</div><h2 class="title">Paste a Zillow link</h2><p class="helper">Found something that feels perfect? Use it to guide future picks.</p><div style="margin-top:12px"><input class="field" placeholder="Paste Zillow link"><div class="check-list" style="margin-top:10px"><label><input type="checkbox"> good price</label><label><input type="checkbox"> great light / view</label><label><input type="checkbox"> great interior quality</label></div><button class="btn full" style="margin-top:12px">Use this as a reference</button></div></div></div></body></html>
