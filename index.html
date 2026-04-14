@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>REAL — Demand-first rental platform</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #f8f9fc;
+  --surface: #ffffff;
+  --border: rgba(15,23,42,0.08);
+  --border-md: rgba(15,23,42,0.14);
+  --text: #0f172a;
+  --muted: #64748b;
+  --light: #94a3b8;
+  --blue: #2563eb;
+  --blue-soft: #eff6ff;
+  --blue-mid: #dbeafe;
+  --blue-dark: #1d4ed8;
+  --green: #059669;
+  --green-soft: #ecfdf5;
+  --amber: #d97706;
+  --amber-soft: #fffbeb;
+  --red: #dc2626;
+  --red-soft: #fef2f2;
+  --dark: #0f172a;
+  --shadow-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+  --shadow: 0 4px 16px rgba(15,23,42,.08), 0 1px 4px rgba(15,23,42,.04);
+  --shadow-lg: 0 20px 40px rgba(15,23,42,.10), 0 4px 12px rgba(15,23,42,.06);
+  --r: 16px;
+  --r-sm: 10px;
+  --r-xs: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── PAGES ─── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ─── LAYOUT ─── */
+.wrap { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 0 0 60px; }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(248,249,252,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.nav-inner {
+  width: min(1100px, 100%); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px; gap: 16px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 900; font-size: 20px; letter-spacing: -.04em;
+  cursor: pointer; text-decoration: none; color: var(--text);
+}
+.brand-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--dark); color: #fff;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 800; letter-spacing: .04em;
+}
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-links button {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  padding: 6px 12px; border-radius: 999px;
+  transition: all .15s; font-family: inherit;
+}
+.nav-links button:hover { background: white; color: var(--text); }
+.nav-links button.active { background: white; color: var(--text); box-shadow: var(--shadow-sm); }
+.nav-cta {
+  background: var(--dark) !important; color: #fff !important;
+  padding: 7px 16px !important; border-radius: 999px !important;
+}
+.nav-cta:hover { background: #1e293b !important; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+.card-sm { padding: 20px; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; min-height: 580px;
+  background: var(--dark); border-radius: 24px;
+  overflow: hidden; margin: 24px 0 20px;
+  display: grid; grid-template-columns: 1fr 400px;
+  gap: 24px; align-items: end; padding: 48px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(120deg, rgba(8,15,40,.94) 0%, rgba(8,15,40,.78) 40%, rgba(8,15,40,.35) 70%, rgba(8,15,40,.20) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.4) 100%);
+  background-color: #0a1628;
+}
+.hero-city {
+  position: absolute; inset: 0; opacity: .45;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580"><rect fill="%230a1628" width="1200" height="580"/><rect fill="%23162040" x="50" y="280" width="60" height="300"/><rect fill="%23162040" x="130" y="240" width="80" height="340"/><rect fill="%230d1a35" x="220" y="200" width="50" height="380"/><rect fill="%23162040" x="290" y="260" width="90" height="320"/><rect fill="%230d1a35" x="400" y="180" width="40" height="400"/><rect fill="%23162040" x="460" y="220" width="70" height="360"/><rect fill="%230a1628" x="550" y="150" width="55" height="430"/><rect fill="%23162040" x="620" y="200" width="85" height="380"/><rect fill="%230d1a35" x="720" y="170" width="60" height="410"/><rect fill="%23162040" x="800" y="240" width="75" height="340"/><rect fill="%230a1628" x="890" y="190" width="50" height="390"/><rect fill="%23162040" x="960" y="260" width="90" height="320"/><rect fill="%230d1a35" x="1070" y="220" width="65" height="360"/><rect fill="rgba(255,200,50,.25)" x="60" y="310" width="8" height="10"/><rect fill="rgba(255,200,50,.25)" x="80" y="295" width="8" height="10"/><rect fill="rgba(255,200,50,.20)" x="140" y="275" width="8" height="10"/><rect fill="rgba(255,200,50,.20)" x="165" y="260" width="8" height="10"/><rect fill="rgba(100,160,255,.2)" x="560" y="185" width="10" height="12"/><rect fill="rgba(100,160,255,.2)" x="580" y="200" width="10" height="12"/></svg>') center/cover no-repeat;
+}
+.hero-content { position: relative; z-index: 2; color: #fff; align-self: center; padding-bottom: 8px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px; padding: 6px 14px;
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  margin-bottom: 20px; color: rgba(255,255,255,.85);
+}
+.eyebrow-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+.hero h1 {
+  font-size: clamp(44px, 6vw, 76px); font-weight: 900;
+  line-height: .9; letter-spacing: -.06em; margin-bottom: 20px;
+}
+.hero h1 span { color: rgba(255,255,255,.35); }
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,.72); max-width: 520px; line-height: 1.65;
+  margin-bottom: 28px;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-tag {
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85);
+}
+
+/* ─── HERO PANEL ─── */
+.hero-panel {
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,.97); border-radius: 20px;
+  padding: 24px; align-self: center;
+  box-shadow: 0 24px 64px rgba(0,0,0,.30);
+}
+.hero-panel h3 { font-size: 19px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
+.hero-panel p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+/* ─── DUAL CTA ─── */
+.dual-cta { display: grid; gap: 10px; }
+.cta-block {
+  border: 1.5px solid var(--border-md); border-radius: var(--r-sm);
+  padding: 16px; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 12px;
+}
+.cta-block:hover { border-color: var(--blue); background: var(--blue-soft); }
+.cta-block.tenant:hover { border-color: var(--blue); }
+.cta-block.landlord:hover { border-color: var(--dark); background: #f8fafc; }
+.cta-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: grid; place-items: center; font-size: 18px; flex-shrink: 0;
+}
+.cta-icon.blue { background: var(--blue-soft); }
+.cta-icon.dark { background: var(--dark); color: white; }
+.cta-block-text strong { display: block; font-size: 14px; font-weight: 700; }
+.cta-block-text span { font-size: 12px; color: var(--muted); }
+.cta-arrow { margin-left: auto; color: var(--light); font-size: 16px; }
+
+/* ─── SECTION HEADERS ─── */
+.section-head { margin-bottom: 20px; }
+.label-tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--blue);
+  background: var(--blue-soft); padding: 4px 10px; border-radius: 999px;
+  margin-bottom: 8px;
+}
+.section-head h2 { font-size: 26px; font-weight: 800; letter-spacing: -.04em; line-height: 1.15; }
+.section-head p { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+/* ─── FEATURES GRID ─── */
+.features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 20px;
+}
+.feature-icon { font-size: 22px; margin-bottom: 10px; }
+.feature-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border-radius: var(--r-xs); padding: 12px 20px; font-size: 14px; font-weight: 700;
+  cursor: pointer; border: 1px solid transparent; font-family: inherit;
+  transition: all .15s; text-decoration: none;
+}
+.btn-primary { background: var(--dark); color: #fff; }
+.btn-primary:hover { background: #1e293b; }
+.btn-secondary { background: white; color: var(--text); border-color: var(--border-md); }
+.btn-secondary:hover { background: var(--bg); }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: var(--blue-dark); }
+.btn-ghost { background: transparent; color: var(--muted); border-color: var(--border); }
+.btn-ghost:hover { background: white; color: var(--text); }
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-lg { padding: 14px 24px; font-size: 15px; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; border: 1px solid transparent;
+}
+.badge-blue { background: var(--blue-soft); color: var(--blue-dark); border-color: rgba(37,99,235,.15); }
+.badge-green { background: var(--green-soft); color: #047857; border-color: rgba(5,150,105,.15); }
+.badge-amber { background: var(--amber-soft); color: #92400e; border-color: rgba(217,119,6,.15); }
+.badge-red { background: var(--red-soft); color: #991b1b; border-color: rgba(220,38,38,.15); }
+.badge-gray { background: #f1f5f9; color: #475569; border-color: var(--border-md); }
+.badges-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+
+/* ─── DASHBOARD ─── */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 320px; gap: 16px; margin-top: 24px; }
+.sidebar-stack { display: grid; gap: 14px; align-content: start; }
+
+/* ─── SCORE WIDGET ─── */
+.score-widget {
+  background: var(--dark); color: #fff; border-radius: var(--r);
+  padding: 24px; position: relative; overflow: hidden;
+}
+.score-widget::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(37,99,235,.2);
+}
+.score-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .5; margin-bottom: 8px; }
+.score-num { font-size: 64px; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.score-num span { font-size: 24px; opacity: .4; font-weight: 700; }
+.score-rank { font-size: 13px; opacity: .6; margin-top: 6px; }
+.score-bar-wrap { margin-top: 16px; }
+.score-bar {
+  height: 6px; background: rgba(255,255,255,.15); border-radius: 999px; overflow: hidden;
+  margin-top: 6px;
+}
+.score-bar-fill { height: 100%; background: #3b82f6; border-radius: 999px; transition: width 1s ease; }
+
+/* ─── PROFILE STRENGTH ─── */
+.strength-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: var(--r-xs);
+  font-size: 13px; border: 1px solid var(--border); margin-bottom: 8px;
+  background: white;
+}
+.strength-item.done { background: var(--green-soft); border-color: rgba(5,150,105,.15); }
+.strength-item.done .si-icon { background: var(--green); color: white; }
+.strength-item.locked { opacity: .5; }
+.si-icon {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  background: var(--border); display: grid; place-items: center; font-size: 12px;
+}
+.si-text strong { display: block; font-weight: 600; font-size: 13px; }
+.si-text span { font-size: 11px; color: var(--muted); }
+.si-pts { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--blue); }
+
+/* ─── OPPORTUNITY CARDS ─── */
+.opp-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px; margin-bottom: 12px;
+}
+.opp-card.highlight { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.06); }
+.opp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.opp-title { font-size: 18px; font-weight: 800; letter-spacing: -.03em; }
+.opp-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.opp-price { font-size: 22px; font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+.opp-footer { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+/* ─── FORM ELEMENTS ─── */
+.form-section { margin-top: 24px; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.field-wrap { display: grid; gap: 6px; }
+.field-label { font-size: 13px; font-weight: 600; color: #334155; }
+.field {
+  width: 100%; border: 1px solid var(--border-md); border-radius: var(--r-xs);
+  padding: 11px 14px; background: white; font-size: 14px; color: var(--text);
+  outline: none; font-family: inherit; transition: border-color .15s;
+}
+.field:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+select.field { cursor: pointer; }
+
+/* ─── SLIDERS ─── */
+.slider-card {
+  background: #f8faff; border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 14px;
+}
+.slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.slider-name { font-size: 13px; font-weight: 700; }
+.slider-val {
+  font-size: 12px; font-weight: 700; background: white;
+  border: 1px solid var(--border-md); border-radius: 999px; padding: 4px 10px;
+  min-width: 60px; text-align: center;
+}
+input[type="range"] {
+  width: 100%; accent-color: var(--blue); cursor: pointer;
+}
+.slider-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--light); margin-top: 4px; }
+
+/* ─── STEPS / WIZARD ─── */
+.steps-bar {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 28px; flex-wrap: wrap;
+}
+.step-dot {
+  display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;
+  color: var(--light); padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.step-dot.active { background: var(--blue); color: white; border-color: var(--blue); }
+.step-dot.done { background: var(--green-soft); color: #047857; border-color: rgba(5,150,105,.2); }
+.step-num { width: 20px; height: 20px; border-radius: 50%; background: currentColor; opacity: .2; display: grid; place-items: center; font-size: 10px; font-weight: 800; }
+.step-dot.active .step-num, .step-dot.done .step-num { opacity: 1; background: rgba(255,255,255,.25); color: inherit; }
+
+/* ─── TENANT LIST (landlord view) ─── */
+.tenant-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--r); padding: 18px; margin-bottom: 12px;
+}
+.tenant-card.top { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.06); }
+.tenant-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.tenant-name { font-size: 17px; font-weight: 800; }
+.tenant-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.score-pill {
+  display: flex; align-items: baseline; gap: 3px;
+  font-size: 28px; font-weight: 900; letter-spacing: -.04em;
+}
+.score-pill small { font-size: 14px; color: var(--muted); font-weight: 600; }
+.tenant-locked {
+  background: var(--bg); border-radius: var(--r-sm); padding: 12px;
+  display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px;
+  margin-top: 10px;
+}
+
+/* ─── TIMELINE RATING ─── */
+.timeline-item {
+  position: relative; padding-left: 32px; padding-bottom: 28px;
+}
+.timeline-item::before {
+  content: ''; position: absolute; left: 11px; top: 24px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: 0; top: 2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--blue); color: white;
+  display: grid; place-items: center; font-size: 10px; font-weight: 800;
+}
+.timeline-done .timeline-dot { background: var(--green); }
+
+/* ─── INSIGHTS TABLE ─── */
+.insight-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.insight-table th {
+  text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted); padding: 8px 14px;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.insight-table th:first-child { border-radius: 8px 0 0 8px; }
+.insight-table th:last-child { border-radius: 0 8px 8px 0; }
+.insight-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.insight-table tr:last-child td { border-bottom: none; }
+
+/* ─── STAT CARDS ─── */
+.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 16px 0; }
+.stat-card {
+  background: var(--bg); border-radius: var(--r-sm); padding: 16px;
+  border: 1px solid var(--border);
+}
+.stat-value { font-size: 28px; font-weight: 900; letter-spacing: -.05em; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ─── LEASE CONFIRM ─── */
+.confirm-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.confirm-card {
+  border: 1px solid var(--border); border-radius: var(--r); padding: 20px;
+}
+.confirm-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.confirm-card p { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+
+/* ─── OPPORTUNITY PAGE ─── */
+.opp-detail { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 24px; }
+.opp-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.quality-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 14px; }
+.quality-item {
+  background: var(--bg); border-radius: var(--r-xs); padding: 12px;
+  border: 1px solid var(--border);
+}
+.quality-item .q-name { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.quality-item .q-val { font-size: 14px; font-weight: 700; }
+
+/* ─── PROGRESS BAR ─── */
+.prog-bar { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; margin: 6px 0; }
+.prog-fill { height: 100%; border-radius: 999px; background: var(--blue); transition: width .6s ease; }
+
+/* ─── INFO BOX ─── */
+.info-box {
+  border: 1px dashed rgba(37,99,235,.3); border-radius: var(--r-sm);
+  padding: 14px; background: var(--blue-soft); margin-top: 14px;
+}
+.info-box strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.info-box p { font-size: 12px; color: #1e40af; line-height: 1.6; }
+
+/* ─── GAMIFICATION UNLOCK ─── */
+.unlock-item {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 12px 14px; background: white; margin-bottom: 8px;
+  cursor: pointer; transition: all .2s;
+}
+.unlock-item:hover { border-color: var(--blue); }
+.unlock-item.done { background: var(--green-soft); border-color: rgba(5,150,105,.2); }
+.unlock-item.locked { opacity: .5; cursor: default; pointer-events: none; }
+.ui-check {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid var(--border-md); display: grid; place-items: center;
+  font-size: 11px;
+}
+.unlock-item.done .ui-check { background: var(--green); border-color: var(--green); color: white; }
+.ui-text strong { font-size: 13px; font-weight: 600; display: block; }
+.ui-text span { font-size: 11px; color: var(--muted); }
+.ui-pts { margin-left: auto; font-size: 12px; font-weight: 700; }
+.unlock-item.done .ui-pts { color: var(--green); }
+.unlock-item:not(.done):not(.locked) .ui-pts { color: var(--blue); }
+
+/* ─── CHECKBOX ─── */
+.check-label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 0;
+}
+.check-label input { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; }
+
+/* ─── VISIBILITY RING ─── */
+.vis-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  border: 6px solid var(--border); display: flex; align-items: center;
+  justify-content: center; position: relative; margin: 0 auto 12px;
+}
+.vis-ring-fill {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 6px solid var(--blue); clip-path: inset(0 0 0 0);
+}
+.vis-num { font-size: 22px; font-weight: 900; letter-spacing: -.04em; }
+
+/* ─── PAGE FADE ─── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.page.active { animation: fadeIn .25s ease; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding: 36px 28px; }
+  .hero-panel { display: none; }
+  .hero h1 { font-size: 48px; }
+  .dashboard-grid, .features-grid, .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+  .confirm-split, .opp-detail-grid, .stats-row { grid-template-columns: 1fr; }
+  .nav-links button { display: none; }
+  .nav-links button.nav-cta { display: inline-flex; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a class="brand" onclick="showPage('home')">
+      <div class="brand-mark">NYC</div>
+      REAL
+    </a>
+    <div class="nav-links">
+      <button onclick="showPage('home')" id="nav-home" class="active">Home</button>
+      <button onclick="showPage('tenant-setup')" id="nav-tenant-setup">Tenant Setup</button>
+      <button onclick="showPage('tenant-dashboard')" id="nav-tenant-dashboard">My Dashboard</button>
+      <button onclick="showPage('landlord-post')" id="nav-landlord-post">Post Unit</button>
+      <button onclick="showPage('landlord-matches')" id="nav-landlord-matches">Matches</button>
+      <button onclick="showPage('insights')" id="nav-insights">Insights</button>
+      <button class="nav-cta btn" onclick="showPage('tenant-setup')">Get started free →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: HOME
+═════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-city"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><div class="eyebrow-dot"></div>Demand-first rental platform · NYC</div>
+      <h1>Stop searching.<br><span>Let apartments</span><br>find you.</h1>
+      <p class="hero-sub">Tenants describe what they want once. Landlords browse real qualified demand and contact one tenant at a time — no noise, no spam.</p>
+      <div class="hero-tags">
+        <div class="hero-tag">✓ Free for tenants</div>
+        <div class="hero-tag">✓ One-by-one outreach</div>
+        <div class="hero-tag">✓ Portable tenant score</div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <h3>A cleaner rental market.</h3>
+      <p>Demand comes first. Tenants create a profile once. Landlords find the right match and reach out — privately, in order.</p>
+      <div class="dual-cta">
+        <div class="cta-block tenant" onclick="showPage('tenant-setup')">
+          <div class="cta-icon blue">🏠</div>
+          <div class="cta-block-text">
+            <strong>I'm a tenant</strong>
+            <span>Create my profile — free, 3 min</span>
+          </div>
+          <div class="cta-arrow">→</div>
+        </div>
+        <div class="cta-block landlord" onclick="showPage('landlord-post')">
+          <div class="cta-icon dark">🔑</div>
+          <div class="cta-block-text">
+            <strong>I have a unit to rent</strong>
+            <span>See matching tenants instantly</span>
+          </div>
+          <div class="cta-arrow">→</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--light);text-align:center;margin-top:12px">Works alongside Zillow & StreetEasy. Zero downside.</p>
+    </div>
+  </div>
+
+  <!-- WHY DIFFERENT -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="section-head">
+      <div class="label-tag">Why REAL is different</div>
+      <h2>Supply usually waits for demand.<br>Here, demand comes first.</h2>
+      <p>The first rental platform in NYC built from the tenant side up — turning invisible demand into a real, searchable market layer.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h4>For tenants</h4>
+        <p>Free, fast, zero downside. Describe your needs once and stay visible. Let landlords come to you while you search normally.</p>
+        <div style="margin-top:14px">
+          <button class="btn btn-blue btn-sm" onclick="showPage('tenant-setup')">Create profile →</button>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>For landlords & brokers</h4>
+        <p>Skip the noisy listing funnel. See qualified, ready tenants instantly and reach out privately — one at a time.</p>
+        <div style="margin-top:14px">
+          <button class="btn btn-secondary btn-sm" onclick="showPage('landlord-post')">Post a unit →</button>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h4>For the market</h4>
+        <p>Real demand data becomes visible: budgets, timing, neighborhoods, unit preferences — before listings even exist.</p>
+        <div style="margin-top:14px">
+          <button class="btn btn-secondary btn-sm" onclick="showPage('insights')">See insights →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <div class="section-head">
+      <div class="label-tag">How it works</div>
+      <h2>Four steps to a better rental.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px">
+      <div style="text-align:center;padding:16px">
+        <div style="width:48px;height:48px;background:var(--blue-soft);border-radius:14px;display:grid;place-items:center;font-size:22px;margin:0 auto 12px">✍️</div>
+        <strong style="font-size:14px;display:block;margin-bottom:4px">1. Tenant profiles</strong>
+        <span style="font-size:12px;color:var(--muted)">Describe your current place, what you want, budget & timing.</span>
+      </div>
+      <div style="text-align:center;padding:16px">
+        <div style="width:48px;height:48px;background:#f0fdf4;border-radius:14px;display:grid;place-items:center;font-size:22px;margin:0 auto 12px">🔍</div>
+        <strong style="font-size:14px;display:block;margin-bottom:4px">2. Landlords search</strong>
+        <span style="font-size:12px;color:var(--muted)">Post a unit, see a ranked shortlist of matching tenants.</span>
+      </div>
+      <div style="text-align:center;padding:16px">
+        <div style="width:48px;height:48px;background:var(--amber-soft);border-radius:14px;display:grid;place-items:center;font-size:22px;margin:0 auto 12px">📬</div>
+        <strong style="font-size:14px;display:block;margin-bottom:4px">3. One-by-one contact</strong>
+        <span style="font-size:12px;color:var(--muted)">Landlords reach one tenant at a time. First come, first served.</span>
+      </div>
+      <div style="text-align:center;padding:16px">
+        <div style="width:48px;height:48px;background:var(--green-soft);border-radius:14px;display:grid;place-items:center;font-size:22px;margin:0 auto 12px">⭐</div>
+        <strong style="font-size:14px;display:block;margin-bottom:4px">4. Score compounds</strong>
+        <span style="font-size:12px;color:var(--muted)">Each lease builds a portable tenant score. Trust transfers.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: TENANT SETUP
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-tenant-setup">
+<div class="wrap">
+  <div style="padding-top:28px">
+
+  <!-- SCORE PREVIEW WHILE FILLING -->
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start">
+  <div>
+    <div class="section-head">
+      <div class="label-tag">Tenant setup</div>
+      <h2>Create your profile.</h2>
+      <p>Describe your situation once. Become visible to landlords with the right units.</p>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="steps-bar">
+      <div class="step-dot done" id="step1"><div class="step-num">✓</div>Your situation</div>
+      <div style="color:var(--border-md)">—</div>
+      <div class="step-dot active" id="step2"><div class="step-num">2</div>What you want</div>
+      <div style="color:var(--border-md)">—</div>
+      <div class="step-dot" id="step3"><div class="step-num">3</div>Boost options</div>
+    </div>
+
+    <div class="card">
+      <!-- SECTION 1: CURRENT PLACE -->
+      <div class="section-head" style="margin-bottom:16px">
+        <h2 style="font-size:18px">Your current situation</h2>
+      </div>
+      <div class="form-grid-2">
+        <div class="field-wrap">
+          <label class="field-label">Current neighborhood</label>
+          <input class="field" value="Greenpoint" oninput="updateScore()">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Lease end date</label>
+          <input class="field" type="date" value="2026-08-15" oninput="updateScore()">
+        </div>
+      </div>
+      <div class="form-grid-3" style="margin-top:14px">
+        <div class="field-wrap">
+          <label class="field-label">Current rent</label>
+          <input class="field" value="$4,200" oninput="updateScore()">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Bedrooms</label>
+          <select class="field" onchange="updateScore()">
+            <option>Studio</option>
+            <option selected>1 bedroom</option>
+            <option>2 bedrooms</option>
+            <option>3 bedrooms</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Income range</label>
+          <select class="field" onchange="updateScore()">
+            <option>Under $100k</option>
+            <option>$100k – $150k</option>
+            <option selected>$150k – $250k</option>
+            <option>$250k+</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- SLIDERS: CURRENT APARTMENT QUALITY -->
+      <div style="margin-top:18px;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--muted)">CURRENT APARTMENT — QUALITY</div>
+      <div class="form-grid-2">
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Natural light</span><span class="slider-val" id="v-light-now">Average</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-light-now',['Poor','Average','High']);updateScore()">
+          <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">View</span><span class="slider-val" id="v-view-now">Average</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-view-now',['Poor','Average','High']);updateScore()">
+          <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Common areas</span><span class="slider-val" id="v-common-now">Average</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-common-now',['Poor','Average','High']);updateScore()">
+          <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Interior quality</span><span class="slider-val" id="v-interior-now">Average</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-interior-now',['Poor','Average','High']);updateScore()">
+          <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div style="border-top:1px solid var(--border);margin:22px 0"></div>
+
+      <!-- SECTION 2: WHAT YOU WANT -->
+      <div class="section-head" style="margin-bottom:16px">
+        <h2 style="font-size:18px">What you want next</h2>
+      </div>
+      <div class="form-grid-2">
+        <div class="field-wrap">
+          <label class="field-label">Target neighborhoods</label>
+          <input class="field" value="Williamsburg, Greenpoint" oninput="updateScore()">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Maximum budget</label>
+          <input class="field" value="$5,400" oninput="updateScore()">
+        </div>
+      </div>
+      <div class="form-grid-2" style="margin-top:14px">
+        <div class="field-wrap">
+          <label class="field-label">Move timing</label>
+          <select class="field" onchange="updateScore()">
+            <option>Within 30 days</option>
+            <option selected>Within 60 days (Aug)</option>
+            <option>Within 90 days</option>
+            <option>Flexible</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Bedrooms target</label>
+          <select class="field" onchange="updateScore()">
+            <option>Same (1BR)</option>
+            <option selected>Upgrade to 2BR</option>
+            <option>Downsize to Studio</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- WHAT MATTERS MOST -->
+      <div style="margin-top:18px;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--muted)">WHAT MATTERS MOST IN YOUR NEXT PLACE</div>
+      <div class="form-grid-2">
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Light</span><span class="slider-val" id="v-light-want">Better</span></div>
+          <input type="range" min="0" max="100" step="50" value="100" oninput="setSlider(this,'v-light-want',['Lower','Same','Better']);updateScore()">
+          <div class="slider-scale"><span>Lower ok</span><span>Same</span><span>Better</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Interior quality</span><span class="slider-val" id="v-interior-want">Better</span></div>
+          <input type="range" min="0" max="100" step="50" value="100" oninput="setSlider(this,'v-interior-want',['Lower','Same','Better']);updateScore()">
+          <div class="slider-scale"><span>Lower ok</span><span>Same</span><span>Better</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">View</span><span class="slider-val" id="v-view-want">Same</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-view-want',['Lower','Same','Better']);updateScore()">
+          <div class="slider-scale"><span>Lower ok</span><span>Same</span><span>Better</span></div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-header"><span class="slider-name">Common areas</span><span class="slider-val" id="v-common-want">Same</span></div>
+          <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'v-common-want',['Lower','Same','Better']);updateScore()">
+          <div class="slider-scale"><span>Lower ok</span><span>Same</span><span>Better</span></div>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div style="border-top:1px solid var(--border);margin:22px 0"></div>
+
+      <!-- OPTIONAL BOOST -->
+      <div class="info-box">
+        <strong>🔒 Optional — unlock stronger matching</strong>
+        <p>Adding your exact address helps REAL remember apartment quality history and connect tenants who might want your current place — opening up chain-move opportunities.</p>
+      </div>
+      <div class="form-grid-2" style="margin-top:12px">
+        <div class="field-wrap">
+          <label class="field-label">Current address (optional)</label>
+          <input class="field" placeholder="123 Kent Ave" oninput="updateScore()">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Unit number (optional)</label>
+          <input class="field" placeholder="7B" oninput="updateScore()">
+        </div>
+      </div>
+      <label class="check-label" style="margin-top:12px">
+        <input type="checkbox" checked onchange="updateScore()">
+        I'm open to moving earlier if a strong match appears
+      </label>
+
+      <div class="btn-row">
+        <button class="btn btn-primary btn-lg" onclick="showPage('tenant-dashboard')">Create my profile ✓</button>
+        <button class="btn btn-secondary" onclick="showPage('home')">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE SCORE SIDEBAR -->
+  <div style="position:sticky;top:80px">
+    <div class="score-widget">
+      <div class="score-label">Your REAL score</div>
+      <div class="score-num" id="live-score">4.3<span>/5</span></div>
+      <div class="score-rank" id="live-rank">Top 28% in Williamsburg / Greenpoint</div>
+      <div class="score-bar-wrap">
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.5;margin-bottom:4px">
+          <span>Profile strength</span><span id="live-pct">76%</span>
+        </div>
+        <div class="score-bar"><div class="score-bar-fill" id="live-bar" style="width:76%"></div></div>
+      </div>
+    </div>
+
+    <div class="card card-sm" style="margin-top:14px">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Complete to boost score</div>
+
+      <div class="unlock-item done">
+        <div class="ui-check">✓</div>
+        <div class="ui-text"><strong>Current address</strong><span>Adds quality memory</span></div>
+        <div class="ui-pts">+12pts</div>
+      </div>
+      <div class="unlock-item done">
+        <div class="ui-check">✓</div>
+        <div class="ui-text"><strong>Income range</strong><span>Verifies affordability</span></div>
+        <div class="ui-pts">+15pts</div>
+      </div>
+      <div class="unlock-item" onclick="this.classList.add('done');updateScore(true)">
+        <div class="ui-check"></div>
+        <div class="ui-text"><strong>Exact unit number</strong><span>Unlocks chain moves</span></div>
+        <div class="ui-pts">+8pts</div>
+      </div>
+      <div class="unlock-item locked">
+        <div class="ui-check">🔒</div>
+        <div class="ui-text"><strong>Verified employer</strong><span>Top 10% boost</span></div>
+        <div class="ui-pts">+20pts</div>
+      </div>
+      <div class="unlock-item locked">
+        <div class="ui-check">🔒</div>
+        <div class="ui-text"><strong>Previous landlord ref</strong><span>Trust multiplier</span></div>
+        <div class="ui-pts">+25pts</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: TENANT DASHBOARD
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-tenant-dashboard">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Your dashboard</div>
+    <h2>You're live on the network.</h2>
+    <p>Passive, free, and visible. Landlords can find you based on your profile.</p>
+  </div>
+
+  <div class="dashboard-grid">
+  <div>
+    <!-- PROFILE CARD -->
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+        <div>
+          <div class="badges-row">
+            <span class="badge badge-green">✓ Trusted tenant</span>
+            <span class="badge badge-blue">1 landlord validation</span>
+            <span class="badge badge-gray">Early move enabled</span>
+          </div>
+          <div style="margin-top:8px;font-size:13px;color:var(--muted)">
+            Visible for <strong style="color:var(--text)">68%</strong> of matching landlord searches · Top 28% in Williamsburg / Greenpoint
+          </div>
+          <div style="margin-top:12px">
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px">
+              <span>Profile strength</span><span style="font-weight:700;color:var(--text)">76%</span>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:76%"></div></div>
+          </div>
+        </div>
+        <div class="score-pill">4.3<small>/5</small></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-sm" onclick="showPage('tenant-setup')">Edit profile</button>
+        <button class="btn btn-ghost btn-sm" onclick="showPage('insights')">Market insights</button>
+      </div>
+    </div>
+
+    <!-- OPPORTUNITIES -->
+    <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">DIRECT OPPORTUNITIES</div>
+
+    <div class="opp-card highlight">
+      <div class="opp-top">
+        <div>
+          <div class="opp-title">2BR · Williamsburg waterfront</div>
+          <div class="opp-sub">184 Kent Ave · Available August 1</div>
+        </div>
+        <div class="opp-price">$5,200</div>
+      </div>
+      <div class="badges-row">
+        <span class="badge badge-blue">You are first contacted</span>
+        <span class="badge badge-green">Strong profile match</span>
+        <span class="badge badge-amber">⏱ Expires in 36h</span>
+      </div>
+      <div style="font-size:13px;color:var(--muted)">High light · Average view · High interior · Strong common areas. Posted by landlord directly.</div>
+      <div class="opp-footer">
+        <button class="btn btn-primary" onclick="showPage('opportunity')">View opportunity →</button>
+        <button class="btn btn-ghost btn-sm">Pass</button>
+      </div>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-top">
+        <div>
+          <div class="opp-title">Potential early-move match</div>
+          <div class="opp-sub">Greenpoint · Similar quality profile · July timing</div>
+        </div>
+        <div class="opp-price">—</div>
+      </div>
+      <div class="badges-row">
+        <span class="badge badge-amber">Early-move signal</span>
+        <span class="badge badge-blue">Optional path</span>
+      </div>
+      <div style="font-size:13px;color:var(--muted)">You enabled early move. This could unlock a sooner opportunity if both sides stay interested.</div>
+      <div class="opp-footer">
+        <button class="btn btn-secondary btn-sm" onclick="showPage('opportunity')">See details</button>
+        <button class="btn btn-ghost btn-sm">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar-stack">
+    <div class="score-widget">
+      <div class="score-label">REAL score</div>
+      <div class="score-num">4.3<span>/5</span></div>
+      <div class="score-rank">Top 28% · Williamsburg area</div>
+      <div style="margin-top:14px;font-size:11px;opacity:.5;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Profile strength</div>
+      <div class="score-bar"><div class="score-bar-fill" style="width:76%"></div></div>
+      <div style="font-size:11px;opacity:.4;margin-top:4px;text-align:right">76% complete</div>
+    </div>
+
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Boost your rank</div>
+      <div class="unlock-item done">
+        <div class="ui-check">✓</div>
+        <div class="ui-text"><strong>Profile created</strong><span>You're live!</span></div>
+        <div class="ui-pts" style="color:var(--green)">Done</div>
+      </div>
+      <div class="unlock-item done">
+        <div class="ui-check">✓</div>
+        <div class="ui-text"><strong>Income verified</strong><span>+15pts</span></div>
+        <div class="ui-pts" style="color:var(--green)">Done</div>
+      </div>
+      <div class="unlock-item" onclick="this.classList.add('done')">
+        <div class="ui-check"></div>
+        <div class="ui-text"><strong>Add exact unit</strong><span>Unlock chain moves</span></div>
+        <div class="ui-pts">+8pts</div>
+      </div>
+      <div class="unlock-item locked">
+        <div class="ui-check">🔒</div>
+        <div class="ui-text"><strong>Employer verified</strong><span>Big trust boost</span></div>
+        <div class="ui-pts">+20pts</div>
+      </div>
+    </div>
+
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Visibility</div>
+      <div class="vis-ring">
+        <div class="vis-num">68%</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);text-align:center">Visible to 68% of matching landlord searches in your area</p>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: OPPORTUNITY (tenant receives offer)
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-opportunity">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Direct opportunity</div>
+    <h2>You were selected for this unit.</h2>
+    <p>You are first in line. If you pass or don't respond before the timer, the landlord can move to the next tenant.</p>
+  </div>
+
+  <div class="dashboard-grid">
+  <div>
+    <div class="opp-detail">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+        <div>
+          <div style="font-size:26px;font-weight:900;letter-spacing:-.04em">184 Kent Ave · 2BR</div>
+          <div style="font-size:15px;color:var(--muted);margin-top:4px">Williamsburg · Available August 1</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:32px;font-weight:900;letter-spacing:-.04em">$5,200</div>
+          <div style="font-size:12px;color:var(--muted)">per month</div>
+        </div>
+      </div>
+
+      <div class="badges-row" style="margin-top:14px">
+        <span class="badge badge-blue">🥇 You are first in line</span>
+        <span class="badge badge-amber">⏱ Expires in 36h</span>
+        <span class="badge badge-green">Strong match</span>
+      </div>
+
+      <div class="opp-detail-grid">
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px">Unit qualities</div>
+          <div class="quality-grid">
+            <div class="quality-item"><div class="q-name">Natural light</div><div class="q-val">⭐ High</div></div>
+            <div class="quality-item"><div class="q-name">View</div><div class="q-val">Average</div></div>
+            <div class="quality-item"><div class="q-name">Common areas</div><div class="q-val">⭐ High</div></div>
+            <div class="quality-item"><div class="q-name">Interior</div><div class="q-val">⭐ High</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px">Why you were selected</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">
+            Your budget ($5,400 max), move timing (August), and apartment quality preferences align closely with this unit. You ranked #1 out of 48 matching tenants.
+          </div>
+          <div class="info-box" style="margin-top:12px">
+            <strong>Priority access, not pre-approval</strong>
+            <p>If you like it after visiting, you're in a much stronger position than in a public listing funnel.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:20px">
+        <button class="btn btn-primary btn-lg" onclick="showPage('lease-confirm')">I'm interested →</button>
+        <button class="btn btn-secondary">Pass</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-stack">
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Match score</div>
+      <div class="score-pill" style="font-size:48px">4.8<small>/5</small></div>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">#1 ranked out of 48 matching tenants</div>
+    </div>
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Timeline</div>
+      <div class="timeline-item timeline-done">
+        <div class="timeline-dot" style="background:var(--green)">✓</div>
+        <strong style="font-size:13px">Profile matched</strong>
+        <div style="font-size:12px;color:var(--muted)">Apr 14 — Landlord saw your profile</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">!</div>
+        <strong style="font-size:13px">Respond before Apr 16</strong>
+        <div style="font-size:12px;color:var(--muted)">36 hour window</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--border);color:var(--muted)">→</div>
+        <strong style="font-size:13px">Visit & decide</strong>
+        <div style="font-size:12px;color:var(--muted)">If interested</div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <button class="btn btn-ghost btn-sm" style="width:100%" onclick="showPage('tenant-dashboard')">← Back to dashboard</button>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: LANDLORD POST UNIT
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-landlord-post">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Landlord / broker</div>
+    <h2>Post a unit. See matching tenants instantly.</h2>
+    <p>Keep it minimal. You only need enough to generate a strong shortlist.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start">
+  <div class="card">
+    <div class="form-grid-2">
+      <div class="field-wrap">
+        <label class="field-label">Neighborhood</label>
+        <input class="field" value="Williamsburg">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label">Available from</label>
+        <input class="field" type="date" value="2026-08-01">
+      </div>
+    </div>
+    <div class="form-grid-3" style="margin-top:14px">
+      <div class="field-wrap">
+        <label class="field-label">Bedrooms</label>
+        <select class="field">
+          <option>Studio</option>
+          <option>1 bedroom</option>
+          <option selected>2 bedrooms</option>
+          <option>3 bedrooms</option>
+        </select>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label">Asking rent</label>
+        <input class="field" value="$5,200">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label">Your role</label>
+        <select class="field">
+          <option selected>Landlord</option>
+          <option>Broker</option>
+          <option>Property manager</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Unit qualities</div>
+    <div class="form-grid-2">
+      <div class="slider-card">
+        <div class="slider-header"><span class="slider-name">Natural light</span><span class="slider-val" id="lu-light">High</span></div>
+        <input type="range" min="0" max="100" step="50" value="100" oninput="setSlider(this,'lu-light',['Poor','Average','High'])">
+        <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+      </div>
+      <div class="slider-card">
+        <div class="slider-header"><span class="slider-name">View</span><span class="slider-val" id="lu-view">Average</span></div>
+        <input type="range" min="0" max="100" step="50" value="50" oninput="setSlider(this,'lu-view',['Poor','Average','High'])">
+        <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+      </div>
+      <div class="slider-card">
+        <div class="slider-header"><span class="slider-name">Common areas</span><span class="slider-val" id="lu-common">High</span></div>
+        <input type="range" min="0" max="100" step="50" value="100" oninput="setSlider(this,'lu-common',['Poor','Average','High'])">
+        <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+      </div>
+      <div class="slider-card">
+        <div class="slider-header"><span class="slider-name">Interior quality</span><span class="slider-val" id="lu-interior">High</span></div>
+        <input type="range" min="0" max="100" step="50" value="100" oninput="setSlider(this,'lu-interior',['Poor','Average','High'])">
+        <div class="slider-scale"><span>Poor</span><span>Average</span><span>High</span></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>📍 Optional — unit memory</strong>
+      <p>Provide a precise address to store the apartment's quality profile. Future tenants and matches gain higher confidence scores.</p>
+    </div>
+    <div class="form-grid-2" style="margin-top:12px">
+      <div class="field-wrap">
+        <label class="field-label">Address (optional)</label>
+        <input class="field" placeholder="184 Kent Ave">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label">Unit (optional)</label>
+        <input class="field" placeholder="B1203">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary btn-lg" onclick="showPage('landlord-matches')">See matching tenants →</button>
+      <button class="btn btn-secondary" onclick="showPage('home')">Back</button>
+    </div>
+  </div>
+
+  <div class="sidebar-stack">
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">What you get</div>
+      <div style="display:grid;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px">
+          <div style="width:28px;height:28px;background:var(--blue-soft);border-radius:8px;display:grid;place-items:center;font-size:14px">🎯</div>
+          <span>Top 5 ranked matching tenants</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px">
+          <div style="width:28px;height:28px;background:var(--green-soft);border-radius:8px;display:grid;place-items:center;font-size:14px">🔒</div>
+          <span>Private, one-by-one contact</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px">
+          <div style="width:28px;height:28px;background:var(--amber-soft);border-radius:8px;display:grid;place-items:center;font-size:14px">⚡</div>
+          <span>Instant match, no listing wait</span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Pricing model</div>
+      <div class="stats-row" style="grid-template-columns:1fr;gap:8px;margin:0">
+        <div class="stat-card"><div style="font-size:13px;font-weight:700">Pay per contact</div><div style="font-size:12px;color:var(--muted)">Credit per tenant reached</div></div>
+        <div class="stat-card"><div style="font-size:13px;font-weight:700">Monthly pass</div><div style="font-size:12px;color:var(--muted)">1 / 2 / 3 month options</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: LANDLORD MATCHES
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-landlord-matches">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Your unit shortlist</div>
+    <h2>Top matching tenants.</h2>
+    <p>Contact one at a time. Next profiles unlock once the current one responds or passes.</p>
+  </div>
+
+  <div class="dashboard-grid">
+  <div>
+    <div class="tenant-card top">
+      <div class="tenant-header">
+        <div>
+          <div class="tenant-name">Tenant #1 · Strong match</div>
+          <div class="tenant-sub">Looking for 2BR · Williamsburg / Greenpoint · Max $5,400 · August</div>
+        </div>
+        <div class="score-pill">4.5<small>/5</small></div>
+      </div>
+      <div class="badges-row">
+        <span class="badge badge-green">✓ Trusted tenant</span>
+        <span class="badge badge-blue">Income fits</span>
+        <span class="badge badge-gray">Early move open</span>
+      </div>
+      <div style="font-size:13px;color:var(--muted)">High light preference · High interior preference · Average view sensitivity. Lease ends Aug 15.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="showPage('opportunity')">Contact this tenant →</button>
+        <button class="btn btn-ghost btn-sm">Pass</button>
+      </div>
+    </div>
+
+    <div class="tenant-card">
+      <div class="tenant-header">
+        <div>
+          <div class="tenant-name">Tenant #2</div>
+          <div class="tenant-sub">2BR target · Flexible area · Max $5,100 · Aug / Sep</div>
+        </div>
+        <div class="score-pill">4.2<small>/5</small></div>
+      </div>
+      <div class="tenant-locked">
+        <div style="font-size:16px">🔒</div>
+        <div style="font-size:13px">Locked until Tenant #1 responds or the 36h window expires</div>
+      </div>
+    </div>
+
+    <div class="tenant-card">
+      <div class="tenant-header">
+        <div>
+          <div class="tenant-name">Tenant #3</div>
+          <div class="tenant-sub">2BR target · Williamsburg only · Max $5,300</div>
+        </div>
+        <div class="score-pill">3.9<small>/5</small></div>
+      </div>
+      <div class="tenant-locked">
+        <div style="font-size:16px">🔒</div>
+        <div style="font-size:13px">Locked until Tenant #1 responds or the 36h window expires</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-stack">
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Your unit</div>
+      <div style="font-size:28px;font-weight:900;letter-spacing:-.04em">2BR</div>
+      <div style="font-size:13px;color:var(--muted)">Williamsburg · $5,200 · Aug 1</div>
+      <div class="badges-row" style="margin-top:10px">
+        <span class="badge badge-green">High light</span>
+        <span class="badge badge-green">High interior</span>
+        <span class="badge badge-gray">Average view</span>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Demand summary</div>
+      <div class="stats-row" style="grid-template-columns:1fr 1fr;gap:8px;margin:0">
+        <div class="stat-card"><div class="stat-value">48</div><div class="stat-label">matching tenants</div></div>
+        <div class="stat-card"><div class="stat-value">$5,100</div><div class="stat-label">avg budget</div></div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:8px" onclick="showPage('landlord-post')">← Edit unit</button>
+      <button class="btn btn-secondary btn-sm" style="width:100%" onclick="showPage('lease-confirm')">Confirm a lease</button>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: LEASE CONFIRMATION
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-lease-confirm">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Lease confirmation</div>
+    <h2>Turn a match into a tracked lease.</h2>
+    <p>This step lets REAL follow the relationship over time and build a useful tenant score — without sensitive document uploads.</p>
+  </div>
+
+  <div class="confirm-split">
+    <div class="confirm-card">
+      <h4>🔑 Landlord / broker confirmation</h4>
+      <p>Did this tenant rent your unit?</p>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" onclick="showPage('rating')">Yes, lease signed</button>
+        <button class="btn btn-secondary">No</button>
+      </div>
+      <div style="margin-top:16px;display:grid;gap:12px">
+        <div class="field-wrap">
+          <label class="field-label">Move-in date</label>
+          <input class="field" type="date" value="2026-08-01">
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Lease duration</label>
+          <select class="field">
+            <option>6 months</option>
+            <option selected>12 months</option>
+            <option>24 months</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Who manages the lease?</label>
+          <select class="field">
+            <option selected>Me</option>
+            <option>Another broker</option>
+            <option>Landlord / property manager</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">Follow-up email (optional)</label>
+          <input class="field" placeholder="manager@example.com">
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm-card">
+      <h4>🏠 Tenant confirmation</h4>
+      <p>Did you rent this apartment through REAL?</p>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" onclick="showPage('rating')">Yes</button>
+        <button class="btn btn-secondary">No</button>
+      </div>
+      <div class="info-box">
+        <strong>How confirmation works</strong>
+        <p>If one side says yes, REAL creates a pending lease record. Both confirming makes it fully verified and counts toward the tenant score.</p>
+      </div>
+      <div style="margin-top:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px">What this unlocks for the tenant:</div>
+        <div class="unlock-item done" style="pointer-events:none">
+          <div class="ui-check" style="background:var(--green);color:white">✓</div>
+          <div class="ui-text"><strong>Confirmed lease record</strong><span>Portable, verified</span></div>
+        </div>
+        <div class="unlock-item done" style="pointer-events:none;margin-top:0">
+          <div class="ui-check" style="background:var(--green);color:white">✓</div>
+          <div class="ui-text"><strong>Score update</strong><span>+0.3 pts after move-in</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: RATING
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-rating">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Tenant score events</div>
+    <h2>Simple feedback, collected over time.</h2>
+    <p>REAL doesn't rely on one end-of-lease review. It accumulates small, credible signals at natural checkpoints.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start">
+  <div class="card">
+    <div style="display:grid;gap:20px">
+      <div class="timeline-item timeline-done">
+        <div class="timeline-dot">1</div>
+        <div class="section-head" style="margin-bottom:12px">
+          <div class="label-tag" style="background:var(--green-soft);color:#047857">After signature — most important</div>
+          <h2 style="font-size:16px;margin-top:6px">Was the tenant's information accurate?</h2>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary btn-sm">Yes, all accurate</button>
+          <button class="btn btn-secondary btn-sm">No, there were issues</button>
+        </div>
+        <div class="info-box" style="margin-top:12px">
+          <strong>Why this is the strongest signal</strong>
+          <p>Easiest to collect and doesn't require the same broker to still be involved later. Instantly updates the tenant score.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="section-head" style="margin-bottom:12px">
+          <div class="label-tag">Mid-lease check — optional</div>
+          <h2 style="font-size:16px;margin-top:6px">Everything going smoothly with this tenant?</h2>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary btn-sm">Yes, all good</button>
+          <button class="btn btn-ghost btn-sm">No</button>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="section-head" style="margin-bottom:12px">
+          <div class="label-tag">End-of-lease review — bonus points</div>
+          <h2 style="font-size:16px;margin-top:6px">10-second final review</h2>
+        </div>
+        <div style="display:grid;gap:8px;margin-bottom:14px">
+          <label class="check-label"><input type="checkbox" checked> Paid on time throughout</label>
+          <label class="check-label"><input type="checkbox" checked> Left the apartment clean</label>
+          <label class="check-label"><input type="checkbox"> No meaningful issues during tenancy</label>
+          <label class="check-label"><input type="checkbox" checked> Would rent to them again</label>
+        </div>
+        <button class="btn btn-primary btn-sm">Submit review → earn 1 free contact credit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-stack">
+    <div class="score-widget">
+      <div class="score-label">Score after this review</div>
+      <div class="score-num">4.6<span>/5</span></div>
+      <div class="score-rank">Projected after confirmation</div>
+      <div class="score-bar" style="margin-top:16px"><div class="score-bar-fill" style="width:92%"></div></div>
+    </div>
+    <div class="card card-sm">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Score milestones</div>
+      <div style="display:grid;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+          <span class="badge badge-gray">4.0+</span>
+          <span>Visible in searches</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+          <span class="badge badge-blue">4.3+</span>
+          <span>Trusted tenant badge</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+          <span class="badge badge-green">4.6+</span>
+          <span>Top 10% — premium visibility</span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:8px" onclick="showPage('landlord-matches')">← Back to matches</button>
+      <button class="btn btn-secondary btn-sm" style="width:100%" onclick="showPage('home')">Home</button>
+    </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: INSIGHTS
+═════════════════════════════════════════════════════ -->
+<div class="page" id="page-insights">
+<div class="wrap" style="padding-top:28px">
+
+  <div class="section-head">
+    <div class="label-tag">Demand intelligence</div>
+    <h2>What the demand layer reveals.</h2>
+    <p>Once enough tenants join, REAL surfaces where real demand is building — before listings appear.</p>
+  </div>
+
+  <div class="stats-row" style="margin-bottom:16px">
+    <div class="stat-card"><div class="stat-value">2,847</div><div class="stat-label">Active tenant profiles in NYC</div></div>
+    <div class="stat-card"><div class="stat-value">$4,820</div><div class="stat-label">Median budget across all profiles</div></div>
+    <div class="stat-card"><div class="stat-value">Aug '26</div><div class="stat-label">Peak demand window</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:14px">Real-time demand by neighborhood × unit type</div>
+    <table class="insight-table">
+      <thead>
+        <tr>
+          <th>Area · Unit type</th>
+          <th>Demand level</th>
+          <th>Median budget</th>
+          <th>Move peak</th>
+          <th>Supply gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Williamsburg · 2BR</strong></td>
+          <td><span class="badge badge-red">Very high</span></td>
+          <td>$4,950</td>
+          <td>Aug – Sep</td>
+          <td><span class="badge badge-amber">Supply gap</span></td>
+        </tr>
+        <tr>
+          <td><strong>Greenpoint · 1BR</strong></td>
+          <td><span class="badge badge-blue">Healthy</span></td>
+          <td>$4,250</td>
+          <td>Jul – Aug</td>
+          <td><span class="badge badge-green">Balanced</span></td>
+        </tr>
+        <tr>
+          <td><strong>Bushwick · 2BR</strong></td>
+          <td><span class="badge badge-green">Rising</span></td>
+          <td>$3,650</td>
+          <td>Aug</td>
+          <td><span class="badge badge-blue">Opportunity</span></td>
+        </tr>
+        <tr>
+          <td><strong>LES · Studio</strong></td>
+          <td><span class="badge badge-gray">Moderate</span></td>
+          <td>$3,200</td>
+          <td>Sep – Oct</td>
+          <td><span class="badge badge-green">Balanced</span></td>
+        </tr>
+        <tr>
+          <td><strong>Astoria · 3BR</strong></td>
+          <td><span class="badge badge-red">Very high</span></td>
+          <td>$5,100</td>
+          <td>Aug</td>
+          <td><span class="badge badge-red">Critical gap</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <h4>For investors</h4>
+      <p>See where real tenant budgets and timing suggest underbuilt or underpriced segments before deploying capital.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💡</div>
+      <h4>For landlords</h4>
+      <p>Price more intelligently and target the right unit type before posting into a noisy public funnel.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <h4>For brokers</h4>
+      <p>Work from real demand clusters instead of waiting for random listing-side chaos. Predict where to focus.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); window.scrollTo(0,0); }
+  const nav = document.getElementById('nav-' + id);
+  if (nav) nav.classList.add('active');
+}
+
+function setSlider(el, outId, labels) {
+  const v = Number(el.value);
+  const idx = Math.round(v / (100 / (labels.length - 1)));
+  document.getElementById(outId).textContent = labels[Math.min(idx, labels.length - 1)];
+}
+
+let scoreBase = 76;
+function updateScore(addPts) {
+  if (addPts) scoreBase = Math.min(scoreBase + 8, 100);
+  document.getElementById('live-bar').style.width = scoreBase + '%';
+  document.getElementById('live-pct').textContent = scoreBase + '%';
+  const s = (3.5 + scoreBase / 100 * 1.5).toFixed(1);
+  document.getElementById('live-score').innerHTML = s + '<span>/5</span>';
+  const rank = scoreBase > 85 ? 'Top 12%' : scoreBase > 75 ? 'Top 28%' : 'Top 45%';
+  document.getElementById('live-rank').textContent = rank + ' in Williamsburg / Greenpoint';
+}
+</script>
+</body>
+</html>
